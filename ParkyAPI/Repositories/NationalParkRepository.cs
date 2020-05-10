@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkyAPI.Data;
 using ParkyAPI.Models;
-using ParkyAPI.Repository.IRepository;
+using ParkyAPI.Repositories.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkyAPI.Repository
+namespace ParkyAPI.Repositories
 {
     public class NationalParkRepository : INationalParkRepository
     {
