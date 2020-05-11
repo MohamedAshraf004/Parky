@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -45,7 +46,26 @@ namespace ParkyAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("ParkOpenApiSpec", new OpenApiInfo() { Title = "My National Park API", Version = "1" });
+                c.SwaggerDoc("ParkOpenApiSpec", new OpenApiInfo() 
+                { 
+                    Title = "My National Park API", Version = "1" ,
+                    Description="Open Api Descreption",
+                    Contact =new OpenApiContact
+                    {
+                        Email="MohamedAshraf1811@outlook.com",
+                        Name="Mohamed Ashraf",
+                        Url=new Uri("https://www.mohashraf.com")
+                    },
+                    License=new OpenApiLicense
+                    {
+                        Name="MIT License",
+                        Url=new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
         }

@@ -13,6 +13,9 @@ using ParkyAPI.Repositories.IRepositories;
 
 namespace ParkyAPI.Controllers
 {
+    /// <summary>
+    /// National Park Controller
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class NationalParksController : Controller
@@ -20,13 +23,23 @@ namespace ParkyAPI.Controllers
         private readonly INationalParkRepository _nationalParkRepository;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// National Park Constructer
+        /// </summary>
+        /// <param name="nationalParkRepository"></param>
+        /// <param name="mapper"></param>
         public NationalParksController(INationalParkRepository nationalParkRepository,IMapper mapper)
         {
             this._nationalParkRepository = nationalParkRepository;
             this._mapper = mapper;
         }
-        // GET: api/<controller>
+        /// <summary>
+        /// get list of NationalPark
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200, Type =typeof(IEnumerable<NationalPark>))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Get()
         {
             var nps = await _nationalParkRepository.GetNationalParksAsync();
@@ -37,7 +50,11 @@ namespace ParkyAPI.Controllers
             return Ok(nps);
         }
 
-        // GET api/<controller>/5
+        /// <summary>
+        /// get NationalPark by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}",Name = "GetNationalPark")]
         public async Task<IActionResult> Get(int id)
         {
@@ -48,8 +65,13 @@ namespace ParkyAPI.Controllers
             }
             return Ok(nps);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nationalParkDto"></param>
+        /// <returns></returns>
         // POST api/<controller>
+        [ProducesDefaultResponseType]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]NationalParkDto nationalParkDto)
         {
@@ -59,7 +81,12 @@ namespace ParkyAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, "Something wrong happen");
 
         }
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="id"></param>
+/// <param name="nationalParkDto"></param>
+/// <returns></returns>
         // PUT api/<controller>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody]NationalParkDto nationalParkDto)
@@ -75,7 +102,11 @@ namespace ParkyAPI.Controllers
 
             return StatusCode(StatusCodes.Status500InternalServerError, "Something wrong happen");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
