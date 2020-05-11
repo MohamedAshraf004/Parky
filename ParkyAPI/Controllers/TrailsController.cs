@@ -16,22 +16,23 @@ namespace ParkyAPI.Controllers
     /// <summary>
     /// National Park Controller
     /// </summary>
-    [Route("api/v{version:apiVersion}/nationalparks")]
+    //[Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/trails")]
     [ApiController]
-    //[ApiExplorerSettings(GroupName = "ParkOpenApiSpecNP")]
-    public class NationalParksController : Controller
+    //[ApiExplorerSettings(GroupName = "ParkOpenApiSpecTrails")]
+    public class TrailsController : Controller
     {
-        private readonly INationalParkRepository _nationalParkRepository;
+        private readonly ITrailRepository _trailRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// National Park Constructer
         /// </summary>
-        /// <param name="nationalParkRepository"></param>
+        /// <param name="trailRepository"></param>
         /// <param name="mapper"></param>
-        public NationalParksController(INationalParkRepository nationalParkRepository,IMapper mapper)
+        public TrailsController(ITrailRepository trailRepository, IMapper mapper)
         {
-            this._nationalParkRepository = nationalParkRepository;
+            this._trailRepository = trailRepository;
             this._mapper = mapper;
         }
         /// <summary>
@@ -39,42 +40,42 @@ namespace ParkyAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(200, Type =typeof(IEnumerable<NationalPark>))]
+        [ProducesResponseType(200, Type =typeof(IEnumerable<Trail>))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Get()
         {
-            var nps = await _nationalParkRepository.GetNationalParksAsync();
-            if (nps==null)
+            var trails = await _trailRepository.GetTrailsAsync();
+            if (trails==null)
             {
                 return NotFound();
             }
-            return Ok(nps);
+            return Ok(trails);
         }
 
         /// <summary>
-        /// get NationalPark by id
+        /// get Trail by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}",Name = "GetNationalPark")]
+        [HttpGet("{id}",Name = "GetTrail")]
         public async Task<IActionResult> Get(int id)
         {
-            var nps = await _nationalParkRepository.GetNationalParkByIdAsync(id);
-            if (nps == null)
+            var trail = await _trailRepository.GetTrailByIdAsync(id);
+            if (trail == null)
             {
                 return NotFound();
             }
-            return Ok(nps);
+            return Ok(trail);
         }
         
         // POST api/<controller>
         [ProducesDefaultResponseType]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]NationalParkDto nationalParkDto)
+        public async Task<IActionResult> Post([FromBody]TrailUpsertDto trailUpsertDto)
         {
-            var np = _mapper.Map<NationalPark>(nationalParkDto);
-            if (await _nationalParkRepository.CreateNationalParkAsync(np))
-                return CreatedAtRoute("GetNationalPark", new {version=HttpContext.GetRequestedApiVersion().ToString() ,id = np.Id }, np);
+            var trail = _mapper.Map<Trail>(trailUpsertDto);
+            if (await _trailRepository.CreateTrailAsync(trail))
+                return CreatedAtRoute("GetTrail", new { version = HttpContext.GetRequestedApiVersion().ToString(), id = trail.Id }, trail);
             return StatusCode(StatusCodes.Status500InternalServerError, "Something wrong happen");
 
         }
@@ -82,20 +83,20 @@ namespace ParkyAPI.Controllers
 /// 
 /// </summary>
 /// <param name="id"></param>
-/// <param name="nationalParkDto"></param>
+/// <param name="trailUpsertDto"></param>
 /// <returns></returns>
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]NationalParkDto nationalParkDto)
+        public async Task<IActionResult> Put(int id, [FromBody]TrailUpsertDto trailUpsertDto)
         {
-            if (!await _nationalParkRepository.ExistNationalParkByIdAsync(id))
+            if (!await _trailRepository.ExistTrailByIdAsync(id))
             {
                 return NotFound();
             }
-            var np = await _nationalParkRepository.GetNationalParkByIdAsync(id);
-            var newnp = _mapper.Map(nationalParkDto, np);
-            if(await _nationalParkRepository.UpdateNationalParkAsync(newnp))
-                return CreatedAtRoute("GetNationalPark", new { version = HttpContext.GetRequestedApiVersion().ToString(),id = newnp.Id }, newnp);
+            var trail = await _trailRepository.GetTrailByIdAsync(id);
+            var newTrail = _mapper.Map(trailUpsertDto, trail);
+            if(await _trailRepository.UpdateTrailAsync(newTrail))
+                return CreatedAtRoute("GetTrail", new { version = HttpContext.GetRequestedApiVersion().ToString(), id = newTrail.Id }, newTrail);
 
             return StatusCode(StatusCodes.Status500InternalServerError, "Something wrong happen");
         }
@@ -108,12 +109,12 @@ namespace ParkyAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (!await _nationalParkRepository.ExistNationalParkByIdAsync(id))
+            if (!await _trailRepository.ExistTrailByIdAsync(id))
             {
                 return NotFound();
             }
-            var np = await _nationalParkRepository.GetNationalParkByIdAsync(id);
-            if (await _nationalParkRepository.DeleteNationalParkAsync(np))
+            var trail = await _trailRepository.GetTrailByIdAsync(id);
+            if (await _trailRepository.DeleteTrailAsync(trail))
                 return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, "Something Went Wrong");
         }

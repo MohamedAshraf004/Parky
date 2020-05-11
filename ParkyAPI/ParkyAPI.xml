@@ -44,6 +44,64 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:ParkyAPI.Controllers.NationalParksV2Controller">
+            <summary>
+            National Park Controller
+            </summary>
+        </member>
+        <member name="M:ParkyAPI.Controllers.NationalParksV2Controller.#ctor(ParkyAPI.Repositories.IRepositories.INationalParkRepository,AutoMapper.IMapper)">
+            <summary>
+            National Park Constructer
+            </summary>
+            <param name="nationalParkRepository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:ParkyAPI.Controllers.NationalParksV2Controller.Get">
+            <summary>
+            get list of NationalPark
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ParkyAPI.Controllers.TrailsController">
+            <summary>
+            National Park Controller
+            </summary>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.#ctor(ParkyAPI.Repositories.IRepositories.ITrailRepository,AutoMapper.IMapper)">
+            <summary>
+            National Park Constructer
+            </summary>
+            <param name="trailRepository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.Get">
+            <summary>
+            get list of NationalPark
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.Get(System.Int32)">
+            <summary>
+            get Trail by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.Put(System.Int32,ParkyAPI.Dtos.TrailUpsertDto)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="trailUpsertDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.Delete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="P:ParkyAPI.Dtos.NationalParkDto.Name">
             <summary>
             

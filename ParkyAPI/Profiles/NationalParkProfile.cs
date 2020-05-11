@@ -14,6 +14,8 @@ namespace ParkyAPI.Profiles
         public NationalParkProfile()
         {
             this.CreateMap<NationalPark, NationalParkDto>().ReverseMap();
+            this.CreateMap<Trail, TrailDto>().ReverseMap();
+            this.CreateMap<Trail, TrailUpsertDto>().ReverseMap();
         }
     }
 }

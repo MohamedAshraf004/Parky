@@ -32,8 +32,7 @@ namespace ParkyAPI.Repositories
 
         public async Task<bool> ExistNationalParkByIdAsync(int id)
         {
-            var re= await _dbContext.NationalParks.AnyAsync(n => n.Id == id);
-            return re;
+            return await _dbContext.NationalParks.AnyAsync(n => n.Id == id);
         }
 
         public async Task<bool> ExistNationalParkByNameAsync(string name)
