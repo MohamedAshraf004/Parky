@@ -17,9 +17,9 @@ namespace ParkyAPI.Controllers
     /// National Park Controller
     /// </summary>
     //[Route("api/[controller]")]
+    //[ApiExplorerSettings(GroupName = "ParkOpenApiSpecTrails")]
     [Route("api/v{version:apiVersion}/trails")]
     [ApiController]
-    //[ApiExplorerSettings(GroupName = "ParkOpenApiSpecTrails")]
     public class TrailsController : Controller
     {
         private readonly ITrailRepository _trailRepository;
@@ -66,6 +66,17 @@ namespace ParkyAPI.Controllers
                 return NotFound();
             }
             return Ok(trail);
+        }
+        [HttpGet("GetTrailsInNationalPark/{id}")]
+        public async Task<IActionResult> GetTrailsInNationalPark(int id)
+        {
+            var trails = await _trailRepository.GetTrailsByNationalParkIdAsync(id);
+            var result = _mapper.Map<IEnumerable<TrailDto>>(trails);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
         
         // POST api/<controller>

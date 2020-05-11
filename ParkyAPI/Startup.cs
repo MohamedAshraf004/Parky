@@ -123,6 +123,7 @@ namespace ParkyAPI
             {
                 foreach (var desc in provider.ApiVersionDescriptions)
                     c.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json", desc.GroupName.ToLowerInvariant());
+
                 c.RoutePrefix = "";
             });
 
