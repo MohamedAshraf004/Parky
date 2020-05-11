@@ -107,8 +107,8 @@ namespace ParkyAPI.Controllers
             var trail = await _trailRepository.GetTrailByIdAsync(id);
             var newTrail = _mapper.Map(trailUpsertDto, trail);
             if(await _trailRepository.UpdateTrailAsync(newTrail))
-                return CreatedAtRoute("GetTrail", new { version = HttpContext.GetRequestedApiVersion().ToString(), id = newTrail.Id }, newTrail);
-
+                return NoContent();
+            //return CreatedAtRoute("GetTrail", new { version = HttpContext.GetRequestedApiVersion().ToString(), id = newTrail.Id }, newTrail);
             return StatusCode(StatusCodes.Status500InternalServerError, "Something wrong happen");
         }
         /// <summary>

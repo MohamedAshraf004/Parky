@@ -94,8 +94,9 @@ namespace ParkyAPI.Controllers
             }
             var np = await _nationalParkRepository.GetNationalParkByIdAsync(id);
             var newnp = _mapper.Map(nationalParkDto, np);
-            if(await _nationalParkRepository.UpdateNationalParkAsync(newnp))
-                return CreatedAtRoute("GetNationalPark", new { version = HttpContext.GetRequestedApiVersion().ToString(),id = newnp.Id }, newnp);
+            if (await _nationalParkRepository.UpdateNationalParkAsync(newnp))
+                return NoContent();
+           // return CreatedAtRoute("GetNationalPark", new { version = HttpContext.GetRequestedApiVersion().ToString(),id = newnp.Id }, newnp);
 
             return StatusCode(StatusCodes.Status500InternalServerError, "Something wrong happen");
         }
