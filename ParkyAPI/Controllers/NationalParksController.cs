@@ -65,11 +65,7 @@ namespace ParkyAPI.Controllers
             }
             return Ok(nps);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nationalParkDto"></param>
-        /// <returns></returns>
+        
         // POST api/<controller>
         [ProducesDefaultResponseType]
         [HttpPost]

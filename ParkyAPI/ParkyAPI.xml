@@ -29,13 +29,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ParkyAPI.Controllers.NationalParksController.Post(ParkyAPI.Dtos.NationalParkDto)">
-            <summary>
-            
-            </summary>
-            <param name="nationalParkDto"></param>
-            <returns></returns>
-        </member>
         <member name="M:ParkyAPI.Controllers.NationalParksController.Put(System.Int32,ParkyAPI.Dtos.NationalParkDto)">
             <summary>
             
